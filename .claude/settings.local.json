@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir \"C:\\\\Users\\\\ADMIN\\\\Desktop\\\\devops-brand\\\\abhi-kultcloud\")",
+      "Bash(npm run *)",
+      "Skill(run)",
+      "Bash(echo \"PID=$!\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "Bash(node *)",
+      "Bash(npm install *)",
+      "Bash(pkill -f \"next dev\")"
+    ]
+  }
+}
