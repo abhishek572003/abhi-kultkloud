@@ -61,7 +61,7 @@ export default function Footer() {
             $ echo &quot;Built with Next.js + Tailwind — by Abhishek Tiwari&quot;
           </p>
           <p className="text-xs text-zinc-600">
-            © {new Date().getFullYear()} abhi@KultKloud. All rights reserved.
+            © {new Date().getFullYear()} abhi@KultKloud. All rights reserved 2026.
           </p>
         </div>
       </div>
