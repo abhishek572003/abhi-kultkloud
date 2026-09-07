@@ -48,7 +48,7 @@ export default function AboutPage() {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       {/* Header */}
       <div className="mb-12">
-        <p className="font-mono text-xs text-green-400 mb-4">// about</p>
+        <p className="font-mono text-xs text-green-400 mb-4">{"// about"}</p>
         <div className="flex flex-col sm:flex-row items-start gap-6 mb-8">
           <div className="shrink-0 w-20 h-20 rounded-full bg-gradient-to-br from-green-400 to-blue-400 flex items-center justify-center font-mono text-2xl font-bold text-zinc-950">
             AT
@@ -138,7 +138,7 @@ export default function AboutPage() {
       {/* Connect */}
       <section className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
         <h2 className="font-semibold text-green-400 mb-3 text-sm font-mono">
-          // connect
+          {"// connect"}
         </h2>
         <p className="text-zinc-400 text-sm mb-5 leading-relaxed">
           Social profiles are being set up. YouTube tutorials, GitHub code, and LinkedIn updates

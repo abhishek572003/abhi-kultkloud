@@ -55,7 +55,7 @@ export default function BlogPage() {
       </div>
 
       <div className="mt-16 bg-zinc-900 border border-zinc-800 rounded-xl p-8 text-center">
-        <p className="font-mono text-xs text-green-400 mb-2">// more-posts</p>
+        <p className="font-mono text-xs text-green-400 mb-2">{"// more-posts"}</p>
         <h3 className="text-xl font-bold text-zinc-100 mb-3">More articles coming soon</h3>
         <p className="text-zinc-500 max-w-md mx-auto text-sm">
           New posts published regularly on DevOps, cloud, and practical engineering topics.

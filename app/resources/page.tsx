@@ -58,7 +58,7 @@ export default function ResourcesPage() {
       </div>
 
       <div className="mt-16 bg-zinc-900 border border-zinc-800 rounded-xl p-8 text-center">
-        <p className="font-mono text-xs text-green-400 mb-2">// more-coming</p>
+        <p className="font-mono text-xs text-green-400 mb-2">{"// more-coming"}</p>
         <h3 className="text-xl font-bold text-zinc-100 mb-3">More resources added regularly</h3>
         <p className="text-zinc-500 max-w-md mx-auto text-sm leading-relaxed">
           New cheatsheets and templates are added as new courses and labs launch. Join the waitlist

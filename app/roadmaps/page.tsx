@@ -28,7 +28,7 @@ export default function RoadmapsPage() {
             <p className="text-sm text-zinc-500 mb-5 leading-relaxed flex-1">{roadmap.description}</p>
 
             <div className="mb-5">
-              <p className="text-xs text-zinc-600 font-mono mb-2">// topics covered</p>
+              <p className="text-xs text-zinc-600 font-mono mb-2">{"// topics covered"}</p>
               <div className="flex flex-wrap gap-1.5">
                 {roadmap.topics.map((topic) => (
                   <span

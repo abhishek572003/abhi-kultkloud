@@ -43,7 +43,7 @@ export default function LabsPage() {
             <p className="text-sm text-zinc-500 mb-4 leading-relaxed flex-1">{lab.description}</p>
 
             <div>
-              <p className="text-xs text-zinc-600 font-mono mb-2">// tools used</p>
+              <p className="text-xs text-zinc-600 font-mono mb-2">{"// tools used"}</p>
               <div className="flex flex-wrap gap-1.5">
                 {lab.tools.map((tool) => (
                   <span
@@ -60,7 +60,7 @@ export default function LabsPage() {
       </div>
 
       <div className="mt-16 bg-zinc-900 border border-zinc-800 rounded-xl p-8 text-center">
-        <p className="font-mono text-xs text-green-400 mb-2">// coming-soon</p>
+        <p className="font-mono text-xs text-green-400 mb-2">{"// coming-soon"}</p>
         <h3 className="text-xl font-bold text-zinc-100 mb-3">Full lab guides coming soon</h3>
         <p className="text-zinc-500 max-w-md mx-auto text-sm leading-relaxed">
           Each lab will have step-by-step instructions, diagrams, and a working solution you can reference.
