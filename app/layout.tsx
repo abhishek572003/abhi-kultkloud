@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./visual-refresh.css";
 import PlatformChrome from "./_components/PlatformChrome";
 
 export const metadata: Metadata = {
