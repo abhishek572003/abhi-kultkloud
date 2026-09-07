@@ -1,3 +1,5 @@
+import { projects } from "./projects";
+
 export type ContentItem = { slug: string; type: string; title: string; description: string; topics: string[]; level: string; time: string; href: string };
 
 export const platformItems: ContentItem[] = [
@@ -6,7 +8,7 @@ export const platformItems: ContentItem[] = [
   { slug: "git-delivery", type: "Guide", title: "Git to delivery", description: "A practical path from version control to repeatable builds, tests, and deployments.", topics: ["Git", "CI/CD"], level: "Intermediate", time: "50 min", href: "/guides/git-delivery" },
   { slug: "containers-kubernetes", type: "Learning path", title: "Containers to Kubernetes", description: "Understand the container lifecycle before moving into workloads, services, scheduling, and EKS.", topics: ["Docker", "Kubernetes"], level: "Intermediate", time: "6–8 hrs", href: "/learning-paths/containers-kubernetes" },
   { slug: "terraform-networking", type: "Lab", title: "Terraform VPC baseline", description: "A portfolio lab for expressing a small AWS network as code and explaining each decision.", topics: ["Terraform", "AWS", "VPC"], level: "Intermediate", time: "2 hrs", href: "/labs/terraform-networking" },
-  { slug: "serverless-flow", type: "Project", title: "Serverless request flow", description: "Trace a request through a static frontend, authenticated API, function, and managed persistence layer.", topics: ["AWS", "Serverless"], level: "Intermediate", time: "2 hrs", href: "/projects/serverless-flow" },
+  ...projects.map(project => ({ slug: project.slug, type: "Project", title: project.title, description: project.description, topics: project.topics, level: project.level, time: project.time, href: `/projects/${project.slug}` })),
 ];
 
 export const learningPaths = [

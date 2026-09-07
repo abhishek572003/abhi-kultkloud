@@ -9,6 +9,42 @@ export interface Resource {
 
 export const resources: Resource[] = [
   {
+    id: "sql-query-patterns",
+    title: "SQL Query Patterns",
+    description:
+      "A compact reference for joins, aggregation, subqueries, views, set operators, and window functions from the SQL learning record.",
+    type: "Guide",
+    format: "MD",
+    slug: "sql-query-patterns",
+  },
+  {
+    id: "python-automation-notes",
+    title: "Python Automation Notes",
+    description:
+      "Readable scripting patterns for data handling, small automations, and cloud API exploration with Python and Boto3.",
+    type: "Guide",
+    format: "MD",
+    slug: "python-automation-notes",
+  },
+  {
+    id: "adobe-experience-concepts",
+    title: "Adobe Experience Concepts",
+    description:
+      "Sanitized conceptual notes on data collection, Web SDK, tags, event forwarding, and analytics workflows.",
+    type: "Reference",
+    format: "MD",
+    slug: "adobe-experience-concepts",
+  },
+  {
+    id: "aws-glue-workflows",
+    title: "AWS Glue Workflow Notes",
+    description:
+      "A learning reference for how managed data cataloguing, transformation, and orchestration fit into an AWS data platform.",
+    type: "Reference",
+    format: "MD",
+    slug: "aws-glue-workflows",
+  },
+  {
     id: "linux-cheatsheet",
     title: "Linux Commands Cheatsheet",
     description:

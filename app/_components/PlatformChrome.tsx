@@ -1,7 +1,7 @@
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
 
-const links = [{ href: "/start-here", label: "Start here" }, { href: "/learning-paths", label: "Learning paths" }, { href: "/labs", label: "Labs" }, { href: "/projects", label: "Projects" }, { href: "/resources", label: "Resources" }];
+const links = [{ href: "/start-here", label: "Start here" }, { href: "/learning-paths", label: "Learning paths" }, { href: "/labs", label: "Labs" }, { href: "/projects", label: "Projects" }, { href: "/resources", label: "Resources" }, { href: "/certifications", label: "Credentials" }];
 
 export default function PlatformChrome({ children }: { children: React.ReactNode }) {
   return <div className="platform-shell">
