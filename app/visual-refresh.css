@@ -33,18 +33,18 @@ kbd { color: var(--muted); border-color: var(--line); background: var(--surface)
 .page-title { font-size: clamp(43px, 5.8vw, 70px); letter-spacing: -.055em; }
 .page-lede { color: var(--muted); }
 .start-card, .project-card, .credential-card, .search-input-wrap, .capability-card {
-  background: var(--surface);
-  border-color: var(--line);
-  color: var(--ink);
+  background: var(--surface) !important;
+  border-color: var(--line) !important;
+  color: var(--ink) !important;
 }
 .start-card:hover, .path-row:hover, .project-card:hover { border-color: #c48a75; }
-.start-card.featured { background: var(--accent-soft); border-color: #d8ad9d; }
+.start-card.featured { background: var(--accent-soft) !important; border-color: #d8ad9d !important; }
 .card-index, .card-number, .devops-no { color: var(--blue); }
 .start-card h2, .start-card p, .start-card .card-link,
 .project-card h2, .project-card p, .project-card .card-link,
 .credential-card h2, .credential-card p, .credential-card .page-kicker,
-.capability-card h3, .capability-card p { color: var(--ink); }
-.start-card p, .project-card p, .credential-card p, .capability-card p { color: var(--muted); }
+.capability-card h3, .capability-card p { color: var(--ink) !important; }
+.start-card p, .project-card p, .credential-card p, .capability-card p { color: var(--muted) !important; }
 .card-link, .resource-arrow, .result-arrow, .card-arrow { color: var(--accent); }
 .tag-row span, .type-badge { color: var(--blue); border-color: #c4d0d4; background: #f7f5f0; }
 .callout { background: var(--accent-soft); border-left-color: var(--accent); }
@@ -99,20 +99,20 @@ kbd { color: var(--muted); border-color: var(--line); background: var(--surface)
 .dark .platform-header { background: color-mix(in srgb, var(--paper) 94%, transparent); }
 .dark .brand-muted { color: #8e9999; }
 .dark .start-card, .dark .project-card, .dark .credential-card,
-.dark .search-input-wrap, .dark .capability-card { background: var(--surface); border-color: var(--line); }
-.dark .start-card.featured { background: var(--accent-soft); border-color: #755344; }
+.dark .search-input-wrap, .dark .capability-card { background: var(--surface) !important; border-color: var(--line) !important; }
+.dark .start-card.featured { background: var(--accent-soft) !important; border-color: #755344 !important; }
 .dark .start-card h2, .dark .start-card p, .dark .start-card .card-link,
 .dark .project-card h2, .dark .project-card p, .dark .project-card .card-link,
 .dark .credential-card h2, .dark .credential-card p,
 .dark .capability-card h3, .dark .capability-card p,
 .dark .page-title, .dark .page-lede, .dark .article-body h2,
 .dark .hero h1, .dark .section-intro h2, .dark .timeline-body h3,
-.dark .devops-grid h3, .dark .credential-card h3, .dark .labs-box h3 { color: var(--ink); }
+ .dark .devops-grid h3, .dark .credential-card h3, .dark .labs-box h3 { color: var(--ink) !important; }
 .dark .start-card p, .dark .project-card p, .dark .credential-card p,
 .dark .capability-card p, .dark .hero-lede, .dark .section-intro > p:last-child,
 .dark .split-intro > p, .dark .timeline-body > p:not(.date-label),
 .dark .devops-grid p, .dark .article-body p, .dark .article-body li,
-.dark .article-layout aside a, .dark .resource-row p:last-child { color: var(--muted); }
+.dark .article-layout aside a, .dark .resource-row p:last-child { color: var(--muted) !important; }
 .dark .tag-row span, .dark .type-badge { background: #1d292e; border-color: #455b65; color: var(--blue); }
 .dark .callout { background: #302823; }
 .dark .callout p { color: var(--ink); }
