@@ -10,6 +10,8 @@ export default function ThemeToggle() {
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     const next = saved ? saved === "dark" : prefersDark;
     document.documentElement.classList.toggle("dark", next);
+    const frame = window.requestAnimationFrame(() => setDark(next));
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   function toggle() {

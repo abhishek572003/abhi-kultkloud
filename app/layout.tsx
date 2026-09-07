@@ -4,12 +4,14 @@ import PlatformChrome from "./_components/PlatformChrome";
 
 export const metadata: Metadata = {
   title: {
-    default: "abhi@KultKloud | Cloud & DevOps Learning from Zero to Job-Ready",
-    template: "%s | abhi@KultKloud",
+    default: "Abhishek Tiwari | Technical Learning Portfolio",
+    template: "%s | abhi.tiwari/learn",
   },
-  description:
-    "Beginner-friendly Cloud and DevOps roadmaps, courses, labs, certifications, and free resources by Abhishek Tiwari.",
-  keywords: ["DevOps", "Cloud", "AWS", "Docker", "Kubernetes", "Linux", "CI/CD", "Terraform", "KultKloud"],
+  description: "A calm, practical knowledge platform for cloud, DevOps, data, Adobe Experience, and generative AI.",
+  metadataBase: new URL("https://abhi-kultkloud.vercel.app"),
+  alternates: { canonical: "/" },
+  openGraph: { title: "Abhishek Tiwari | Technical Learning Portfolio", description: "A chronological learning record and practical knowledge platform for cloud and DevOps.", url: "https://abhi-kultkloud.vercel.app", siteName: "abhi.tiwari/learn", type: "website" },
+  twitter: { card: "summary", title: "Abhishek Tiwari | Technical Learning Portfolio", description: "A practical knowledge platform for cloud and DevOps." },
 };
 
 export default function RootLayout({
