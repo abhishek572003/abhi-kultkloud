@@ -5,9 +5,40 @@ export interface Resource {
   type: "Cheatsheet" | "Reference" | "Templates" | "Guide";
   format: "PDF" | "ZIP" | "MD";
   slug: string;
+  href?: string;
 }
 
 export const resources: Resource[] = [
+  {
+    id: "devops-masterclass-notes",
+    title: "DevOps MasterClass Notes by Abhishek Tiwari",
+    description:
+      "Named public edition of the handwritten June and August 2026 notes, with a dated index covering the full supplied Linux to Terraform progression.",
+    type: "Guide",
+    format: "PDF",
+    slug: "devops-masterclass-notes",
+    href: "/resources/abhishek-tiwari-devops-masterclass-notes.pdf",
+  },
+  {
+    id: "shell-linux-visual-notes",
+    title: "Shell and Linux Visual Notes by Abhishek Tiwari",
+    description:
+      "Shell and Bash comparisons, command examples, and the visual references supplied in the class-notes archive.",
+    type: "Reference",
+    format: "PDF",
+    slug: "shell-linux-visual-notes",
+    href: "/resources/abhishek-tiwari-shell-linux-visual-notes.pdf",
+  },
+  {
+    id: "technical-learning-record",
+    title: "Technical Learning Record by Abhishek Tiwari",
+    description:
+      "A sanitized dated record of SQL, Python, Adobe, AWS data engineering, cloud, DevOps, GenAI, and completed learning evidence.",
+    type: "Guide",
+    format: "PDF",
+    slug: "technical-learning-record",
+    href: "/resources/abhishek-tiwari-technical-learning-record.pdf",
+  },
   {
     id: "sql-query-patterns",
     title: "SQL Query Patterns",
