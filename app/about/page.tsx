@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { journey } from "../_data/journey";
 
 export const metadata: Metadata = {
   title: "About Abhishek Tiwari",
@@ -38,9 +39,9 @@ const platformPrinciples = [
 ];
 
 const socialLinks = [
-  { label: "YouTube", href: "#", note: "Coming soon" },
-  { label: "GitHub", href: "#", note: "Coming soon" },
-  { label: "LinkedIn", href: "#", note: "Coming soon" },
+  { label: "Instagram", href: "https://www.instagram.com/abhi_sh3k_t_/", note: "@abhi_sh3k_t_" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/abhishek-tiwari05/", note: "abhishek-tiwari05" },
+  { label: "GitHub", href: "https://github.com/abhishek572003", note: "abhishek572003" },
 ];
 
 export default function AboutPage() {
@@ -135,26 +136,45 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Learning record (moved from the homepage) */}
+      <section id="journey" className="mb-12 scroll-mt-24">
+        <h2 className="text-xl font-bold mb-2" style={{ color: "var(--ink)" }}>Learning record, Sep 2025 – Sep 2026</h2>
+        <p className="mb-6 leading-relaxed" style={{ color: "var(--muted)" }}>Each phase moved from fundamentals to systems thinking: first learning the tools, then understanding how they connect in a cloud platform.</p>
+        <div className="timeline">
+          {journey.map((item, index) => (
+            <article className="timeline-item" key={item.date}>
+              <div className="timeline-marker">{String(index + 1).padStart(2, "0")}</div>
+              <div className="timeline-body">
+                <p className="date-label">{item.date}</p>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+                <div className="tag-row">{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
       {/* Connect */}
       <section className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
         <h2 className="font-semibold text-green-400 mb-3 text-sm font-mono">
           {"// connect"}
         </h2>
         <p className="text-zinc-400 text-sm mb-5 leading-relaxed">
-          Social profiles are being set up. YouTube tutorials, GitHub code, and LinkedIn updates
-          are coming soon.
+          KultKloud is built and curated by Abhishek Tiwari. Say hello or follow along:
         </p>
         <div className="flex flex-wrap gap-3">
           {socialLinks.map(({ label, href, note }) => (
-            <Link
+            <a
               key={label}
               href={href}
-              className="flex items-center gap-2 px-4 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-sm text-zinc-400 cursor-default"
-              aria-disabled="true"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-2 px-4 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-sm font-semibold text-zinc-100 hover:border-green-400"
             >
               {label}
-              <span className="text-xs font-mono text-zinc-600">{note}</span>
-            </Link>
+              <span className="text-xs font-mono text-zinc-300">{note}</span>
+            </a>
           ))}
         </div>
       </section>

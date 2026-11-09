@@ -1,22 +1,92 @@
-import type { Metadata } from "next";
+import Link from "next/link";
+import DomainGlyph from "./_components/DomainGlyph";
+import InflatedCloud from "./_components/InflatedCloud";
+import { devopsStarterShelf, domains, resourcesCheckedOn } from "./_data/discovery";
+import { socials } from "./_data/site";
 
-export const metadata: Metadata = { title: "Abhishek Tiwari | Technical Learning Portfolio", description: "A chronological record of Abhishek Tiwari's technical learning and hands-on portfolio from September 2025 to August 2026." };
-const timeline = [
-  { date: "Sep 16 – Nov 16, 2025", title: "Technical foundation", text: "Structured training across SQL, Python, and Adobe tools, establishing a base in querying, scripting, and digital experience workflows.", tags: ["SQL", "Python", "AEP / AJO"] },
-  { date: "Nov – Dec 2025", title: "Adobe Analytics practice", text: "Continued practice with analytics concepts and customer experience workflows, turning training material into repeatable technical notes and exercises.", tags: ["Adobe Analytics", "Customer experience"] },
-  { date: "Jan – Feb 2026", title: "AWS data engineering practice", text: "Explored cloud data workflows and AWS services, including AWS Glue, with a focus on how managed services fit together in a data platform.", tags: ["AWS Glue", "Data engineering"] },
-  { date: "Mar – May 2026", title: "Cloud architecture exploration", text: "Expanded from individual services to architecture patterns across AWS and Azure: identity, networking, compute, serverless components, and infrastructure automation.", tags: ["AWS", "Azure", "Terraform"] },
-  { date: "Jun 2 – Aug 28, 2026", title: "DevOps MasterClass", text: "Worked through a dated progression from Linux and Bash to Git, Jenkins, AWS delivery services, Docker, Kubernetes, EKS, observability, RBAC, Terraform, and VPC networking.", tags: ["Linux", "Jenkins", "Docker", "Kubernetes", "Terraform"] },
-  { date: "Aug – Sep 2026", title: "Credentials and GenAI", text: "Completed Microsoft Azure Fundamentals and Claude Certified Architect – Foundations, while developing practical understanding of generative AI, prompt engineering, and agentic AI.", tags: ["AZ-900", "Claude", "GenAI"] },
-];
-const devops = [["01", "Linux & AWS", "Linux commands, filesystems, permissions, shell scripting, AWS Cloud, IAM, EC2"], ["02", "Git & Jenkins", "SCM, GitHub configuration, branching, pull requests, pipelines, agents, access control"], ["03", "AWS delivery", "CodeBuild, CodeDeploy, CodePipeline, and the tradeoffs compared with Jenkins"], ["04", "Containers", "Docker commands, Dockerfiles, image instructions, and containerized Jenkins deployment"], ["05", "Kubernetes & EKS", "Minikube, objects, ECR, deployments, EKS data plane, Helm, ArgoCD, Karpenter"], ["06", "Operations & IaC", "Services, HPA/VPA, Prometheus, Grafana, CloudWatch, RBAC, Terraform, VPC networking"]];
-const capabilities = [{ key: "01", title: "SQL & Data", text: "Relational concepts, joins, aggregation, subqueries, set operators, views, window functions, and practical query reasoning." }, { key: "02", title: "Python", text: "Core scripting foundations with an emphasis on readable automation, data handling, and cloud API exploration with Boto3." }, { key: "03", title: "Adobe Experience", text: "Adobe Experience Platform data collection concepts, Web SDK, tags, data elements, event forwarding, and analytics workflows." }, { key: "04", title: "Cloud Architecture", text: "AWS and Azure fundamentals, IAM, VPC design, serverless application patterns, managed services, and cost-aware architecture." }, { key: "05", title: "AI & GenAI", text: "Prompt engineering, GenAI Core, agentic AI, Claude solutions, and architecture thinking for AI-enabled workflows." }, { key: "06", title: "Hands-on Labs", text: "Small, reproducible portfolio labs created now to demonstrate concepts clearly, labelled separately from historical learning." }];
-function Arrow() { return <span aria-hidden="true">↗</span>; }
-export default function HomePage() { return <main>
-  <section id="top" className="hero section-shell"><div><p className="eyebrow">TECHNICAL LEARNING PORTFOLIO <span>·</span> 2025—2026</p><h1>Learning systems by <em>building</em> them.</h1><p className="hero-lede">A chronological record of my growth across data, digital experience, cloud, DevOps, and generative AI — with the notes, milestones, credentials, and labs that shaped the work.</p><div className="hero-actions"><a className="button button-primary" href="#journey">Explore the journey <Arrow /></a><a className="text-link" href="#credentials">View credentials <Arrow /></a></div></div><div className="hero-card"><div className="terminal-top"><span></span><span></span><span></span><small>~/abhishek/portfolio</small></div><pre>{`$ whoami\nabhishek tiwari\n\n$ focus --current\ncloud architecture + devops\n\n$ status\nlearning in public`}</pre><div className="terminal-footer"><span className="status-dot"></span> Active learning record <span className="mono">SEP 2025 → AUG 2026</span></div></div></section>
-  <section className="proof-strip"><div><strong>01</strong><span>learning record</span></div><div><strong>06</strong><span>focus areas</span></div><div><strong>02</strong><span>certifications</span></div><div><strong>40+</strong><span>dated DevOps milestones</span></div></section>
-  <section id="journey" className="section-shell content-section"><div className="section-intro"><p className="eyebrow">01 / LEARNING JOURNEY</p><h2>A year of compounding skills.</h2><p>Each phase moved from fundamentals to systems thinking: first learning the tools, then understanding how they connect in a cloud platform.</p></div><div className="timeline">{timeline.map((item, index) => <article className="timeline-item" key={item.date}><div className="timeline-marker">{String(index + 1).padStart(2, "0")}</div><div className="timeline-body"><p className="date-label">{item.date}</p><h3>{item.title}</h3><p>{item.text}</p><div className="tag-row">{item.tags.map(tag => <span key={tag}>{tag}</span>)}</div></div></article>)}</div></section>
-  <section id="capabilities" className="section-shell content-section tinted"><div className="section-intro"><p className="eyebrow">02 / CAPABILITIES</p><h2>The map behind the work.</h2><p>A practical set of foundations connected by one theme: making technical systems understandable, repeatable, and useful.</p></div><div className="capability-grid">{capabilities.map(item => <article className="capability-card" key={item.key}><span className="card-number">{item.key}</span><h3>{item.title}</h3><p>{item.text}</p><span className="card-arrow"><Arrow /></span></article>)}</div></section>
-  <section id="devops" className="section-shell content-section"><div className="section-intro split-intro"><div><p className="eyebrow">03 / CLOUD & DEVOPS</p><h2>From command line to cluster.</h2></div><p>The DevOps MasterClass notes provide a dated progression through the operational layers. The sequence below keeps the learning path visible without turning it into a generic course catalogue.</p></div><div className="devops-grid">{devops.map(item => <article key={item[0]}><span className="devops-no">{item[0]}</span><div><h3>{item[1]}</h3><p>{item[2]}</p></div></article>)}</div><div className="architecture-line"><span>Linux</span><b>→</b><span>Git / Jenkins</span><b>→</b><span>Docker</span><b>→</b><span>Kubernetes / EKS</span><b>→</b><span>Terraform / VPC</span></div></section>
-  <section id="credentials" className="section-shell content-section tinted"><div className="section-intro"><p className="eyebrow">04 / CREDENTIALS & LABS</p><h2>Evidence with context.</h2><p>Credentials confirm milestones. Labs make the underlying concepts easier to inspect and discuss.</p></div><div className="credentials-grid"><article className="credential-card"><div className="credential-icon">AZ</div><div><p className="date-label">MICROSOFT CERTIFIED</p><h3>Azure Fundamentals</h3><p>Foundational understanding of cloud concepts, Azure services, security, governance, and pricing.</p><a className="credential-link" href="https://drive.google.com/file/d/15xDCiq8OQb0sw4mCQX0gg8P08dZo5zXe/view?usp=sharing" target="_blank" rel="noreferrer">View certificate file ↗</a><a className="credential-link" href="https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/" target="_blank" rel="noreferrer">View certification reference ↗</a></div><span className="verified">verified</span></article><article className="credential-card"><div className="credential-icon claude">✦</div><div><p className="date-label">CLAUDE CERTIFIED</p><h3>Architect – Foundations</h3><p>Issued Aug 23, 2026 · expires Aug 23, 2027. Focused on foundational architecture thinking for Claude solutions.</p><a className="credential-link" href="https://www.credly.com/badges/3fdc28ea-2105-4735-9b37-d763a17072ef" target="_blank" rel="noreferrer">View public credential ↗</a><a className="credential-link" href="https://drive.google.com/file/d/1f_ng-0IPS277gfTM2WptHFuNr3Lb6h0U/view?usp=drive_link" target="_blank" rel="noreferrer">View certificate file ↗</a></div><span className="verified">verified</span></article></div><div className="labs-box"><div><p className="eyebrow">PORTFOLIO LABS</p><h3>Small demos, clearly labelled.</h3><p>New 1–2 hour demonstrations are kept separate from the historical timeline. They are reproducible exercises for explaining a concept, such as a Terraform VPC baseline, an AWS serverless flow, or a container delivery path.</p></div><a className="button button-dark" href="https://github.com/abhishek572003/abhi-kultkloud" target="_blank" rel="noreferrer">Open the repository <Arrow /></a></div></section>
-</main>; }
+function Arrow() { return <svg aria-hidden="true" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M4 12L12 4M5.5 4H12v6.5" /></svg>; }
+
+export default function HomePage() {
+  return <main className="kk-home">
+    <section className="kk-hero" aria-labelledby="kk-hero-title">
+      <div className="kk-hero-copy">
+        <h1 id="kk-hero-title">Learn the cloud in the order it makes sense.</h1>
+        <p className="kk-lede">KultKloud maps Cloud, DevOps and AI infrastructure into beginner-friendly routes, then points you to hand-picked free videos and docs for every stop.</p>
+        <div className="kk-actions">
+          <a className="kk-button kk-button-primary" href="#domains">Find your starting point</a>
+          <Link className="kk-button kk-button-ghost" href="/start-here">How the routes work</Link>
+        </div>
+        <ul className="kk-promises" aria-label="What KultKloud offers">
+          <li>Free resources only</li><li>Picked by a practitioner</li><li>No sign-up</li>
+        </ul>
+      </div>
+      <div className="kk-hero-art"><InflatedCloud /></div>
+    </section>
+
+    <section id="domains" className="kk-section kk-domains" aria-labelledby="kk-domains-title">
+      <div className="kk-section-head">
+        <h2 id="kk-domains-title">Pick a domain. Follow the route.</h2>
+        <p>Each stop builds on the one before it. New to all of this? Start at the top. Already comfortable with Linux? Jump in wherever you are.</p>
+        <Link className="kk-text-link" href="/learning-paths">See every learning path <Arrow /></Link>
+      </div>
+      <ol className="kk-route">
+        {domains.map((domain, index) => {
+          const body = <>
+            <span className="kk-stop" aria-hidden="true">{index + 1}</span>
+            <span className="kk-glyph"><DomainGlyph icon={domain.icon} /></span>
+            <span className="kk-route-main">
+              <span className="kk-route-name">{domain.name}</span>
+              <span className="kk-route-summary">{domain.summary}</span>
+              <span className="kk-chips">{domain.topics.map(topic => <span key={topic}>{topic}</span>)}</span>
+            </span>
+            <span className="kk-route-meta">{domain.meta}{domain.href && <Arrow />}</span>
+          </>;
+          return <li key={domain.name} className={domain.href ? "kk-route-item" : "kk-route-item is-pending"}>
+            {domain.href ? <Link href={domain.href}>{body}</Link> : <div>{body}</div>}
+          </li>;
+        })}
+      </ol>
+    </section>
+
+    <section className="kk-section kk-shelf" aria-labelledby="kk-shelf-title">
+      <div className="kk-shelf-head">
+        <div>
+          <h2 id="kk-shelf-title">A DevOps starter shelf</h2>
+          <p>A sample of how KultKloud curates: six free resources, in the order we would use them, from pipelines to containers to infrastructure as code.</p>
+        </div>
+        <p className="kk-fresh"><span className="kk-fresh-dot" aria-hidden="true" />Links checked {resourcesCheckedOn}</p>
+      </div>
+      <ol className="kk-shelf-list">
+        {devopsStarterShelf.map(item => <li key={item.href}>
+          <a href={item.href} target="_blank" rel="noreferrer">
+            <span className={`kk-kind kk-kind-${item.kind.toLowerCase()}`}>{item.kind}</span>
+            <span className="kk-shelf-title">{item.title}</span>
+            <span className="kk-shelf-source">{item.source}{item.length && <> · {item.length}</>}</span>
+            <span className="kk-shelf-free">Free</span>
+            <span className="kk-shelf-go"><Arrow /><span className="kk-sr">(opens in a new tab)</span></span>
+          </a>
+        </li>)}
+      </ol>
+    </section>
+
+    <section className="kk-section kk-curator" aria-labelledby="kk-curator-title">
+      <div className="kk-curator-copy">
+        <h2 id="kk-curator-title">Built by Abhishek Tiwari, who just walked the route.</h2>
+        <p>Abhishek Tiwari spent 2025–2026 working through Linux, AWS, Jenkins, Docker, Kubernetes, Terraform and GenAI, kept a dated record of what actually helped, and earned Azure Fundamentals and Claude Certified Architect – Foundations along the way. KultKloud is that record, cleaned up for the next person.</p>
+      </div>
+      <ul className="kk-curator-links">
+        <li><Link href="/about#journey"><b>The learning record</b><span>Six dated phases, Sep 2025 – Sep 2026</span><Arrow /></Link></li>
+        <li><Link href="/resources"><b>Study notes</b><span>DevOps MasterClass and Linux notes (PDF)</span><Arrow /></Link></li>
+        {socials.map(s => <li key={s.label}><a href={s.href} target="_blank" rel="noreferrer"><b>{s.label}</b><span>{s.handle}</span><Arrow /></a></li>)}
+      </ul>
+    </section>
+
+    <section className="kk-section kk-closer" aria-labelledby="kk-closer-title">
+      <h2 id="kk-closer-title">Not sure where you fit?</h2>
+      <div className="kk-actions">
+        <Link className="kk-button kk-button-primary" href="/start-here">Choose where you are</Link>
+        <Link className="kk-button kk-button-quiet" href="/search">Search the library</Link>
+      </div>
+    </section>
+  </main>;
+}
