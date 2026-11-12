@@ -7,8 +7,7 @@ export default function ThemeToggle() {
 
   useEffect(() => {
     const saved = window.localStorage.getItem("theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const next = saved ? saved === "dark" : prefersDark;
+    const next = saved ? saved === "dark" : true;
     document.documentElement.classList.toggle("dark", next);
     const frame = window.requestAnimationFrame(() => setDark(next));
     return () => window.cancelAnimationFrame(frame);

@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
-import { Atkinson_Hyperlegible, JetBrains_Mono, Unbounded } from "next/font/google";
+import { Bricolage_Grotesque, IBM_Plex_Sans, JetBrains_Mono, Silkscreen } from "next/font/google";
 import "./globals.css";
 import "./visual-refresh.css";
 import "./kultkloud.css";
 import PlatformChrome from "./_components/PlatformChrome";
+import MotionProvider from "./_components/MotionProvider";
 
-const display = Unbounded({ subsets: ["latin"], variable: "--font-display", display: "swap" });
-const body = Atkinson_Hyperlegible({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-body", display: "swap" });
+const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-display", display: "swap" });
+const body = IBM_Plex_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-body", display: "swap" });
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
+const pixel = Silkscreen({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-pixel", display: "swap" });
 
-const description = "Curated, beginner-friendly routes through Cloud, DevOps and AI infrastructure, with hand-picked free videos and docs.";
+const description = "Free certification roadmaps, learning routes and hands-on tools for Cloud, DevOps and AI infrastructure, updated automatically. Earn XP as you learn.";
 
 export const metadata: Metadata = {
   title: {
@@ -23,14 +25,18 @@ export const metadata: Metadata = {
   twitter: { card: "summary", title: "KultKloud", description },
 };
 
+// Dark by default; applied before paint so there is no flash of the wrong theme.
+const themeScript = `try{if(localStorage.getItem("theme")!=="light")document.documentElement.classList.add("dark")}catch(e){document.documentElement.classList.add("dark")}`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
-      <body><PlatformChrome>{children}</PlatformChrome></body>
+    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable} ${pixel.variable}`} suppressHydrationWarning>
+      <head><script dangerouslySetInnerHTML={{ __html: themeScript }} /></head>
+      <body><MotionProvider><PlatformChrome>{children}</PlatformChrome></MotionProvider></body>
     </html>
   );
 }

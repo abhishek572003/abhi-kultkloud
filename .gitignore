@@ -42,3 +42,4 @@ next-env.d.ts
 
 # Impeccable engine binary (platform-specific, re-downloadable)
 .claude/skills/impeccable/scripts/bin/
+broken-links.md

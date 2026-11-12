@@ -1,0 +1,38 @@
+// Closest equivalent services across AWS, Azure and Google Cloud (Nov 2026).
+// Equivalents are approximate: features, limits and pricing differ.
+export type ServiceRow = { category: string; need: string; aws: string; azure: string; gcp: string };
+
+export const cloudMap: ServiceRow[] = [
+  { category: "Compute", need: "Virtual machines", aws: "EC2", azure: "Virtual Machines", gcp: "Compute Engine" },
+  { category: "Compute", need: "Functions (serverless)", aws: "Lambda", azure: "Azure Functions", gcp: "Cloud Run functions" },
+  { category: "Compute", need: "Serverless containers", aws: "ECS on Fargate", azure: "Container Apps", gcp: "Cloud Run" },
+  { category: "Compute", need: "Managed Kubernetes", aws: "EKS", azure: "AKS", gcp: "GKE" },
+  { category: "Compute", need: "Container registry", aws: "ECR", azure: "Container Registry", gcp: "Artifact Registry" },
+  { category: "Storage", need: "Object storage", aws: "S3", azure: "Blob Storage", gcp: "Cloud Storage" },
+  { category: "Storage", need: "Block disks", aws: "EBS", azure: "Managed Disks", gcp: "Persistent Disk" },
+  { category: "Storage", need: "Shared file storage", aws: "EFS", azure: "Azure Files", gcp: "Filestore" },
+  { category: "Database", need: "Managed SQL", aws: "RDS / Aurora", azure: "Azure SQL Database", gcp: "Cloud SQL" },
+  { category: "Database", need: "NoSQL document / key-value", aws: "DynamoDB", azure: "Cosmos DB", gcp: "Firestore" },
+  { category: "Database", need: "In-memory cache", aws: "ElastiCache", azure: "Azure Managed Redis", gcp: "Memorystore" },
+  { category: "Database", need: "Data warehouse", aws: "Redshift", azure: "Synapse Analytics", gcp: "BigQuery" },
+  { category: "Networking", need: "Private network", aws: "VPC", azure: "Virtual Network (VNet)", gcp: "VPC" },
+  { category: "Networking", need: "Load balancing", aws: "Elastic Load Balancing", azure: "Load Balancer / Application Gateway", gcp: "Cloud Load Balancing" },
+  { category: "Networking", need: "DNS", aws: "Route 53", azure: "Azure DNS", gcp: "Cloud DNS" },
+  { category: "Networking", need: "CDN", aws: "CloudFront", azure: "Azure Front Door", gcp: "Cloud CDN" },
+  { category: "Networking", need: "Site-to-site VPN", aws: "Site-to-Site VPN", azure: "VPN Gateway", gcp: "Cloud VPN" },
+  { category: "Networking", need: "Private dedicated link", aws: "Direct Connect", azure: "ExpressRoute", gcp: "Cloud Interconnect" },
+  { category: "Security", need: "Identity & access", aws: "IAM", azure: "Microsoft Entra ID + Azure RBAC", gcp: "Cloud IAM" },
+  { category: "Security", need: "Secrets", aws: "Secrets Manager", azure: "Key Vault", gcp: "Secret Manager" },
+  { category: "Security", need: "Encryption keys", aws: "KMS", azure: "Key Vault", gcp: "Cloud KMS" },
+  { category: "Operations", need: "Metrics & alerts", aws: "CloudWatch", azure: "Azure Monitor", gcp: "Cloud Monitoring" },
+  { category: "Operations", need: "Logs", aws: "CloudWatch Logs", azure: "Log Analytics", gcp: "Cloud Logging" },
+  { category: "Operations", need: "Native infrastructure as code", aws: "CloudFormation", azure: "Bicep / ARM templates", gcp: "Infrastructure Manager" },
+  { category: "Operations", need: "CI/CD", aws: "CodePipeline + CodeBuild", azure: "Azure Pipelines", gcp: "Cloud Build" },
+  { category: "Operations", need: "Cost tracking", aws: "Cost Explorer", azure: "Cost Management", gcp: "Cloud Billing reports" },
+  { category: "Integration", need: "Message queue", aws: "SQS", azure: "Service Bus", gcp: "Pub/Sub" },
+  { category: "Integration", need: "Pub/sub notifications", aws: "SNS", azure: "Event Grid", gcp: "Pub/Sub" },
+  { category: "Integration", need: "Event streaming", aws: "Kinesis Data Streams", azure: "Event Hubs", gcp: "Pub/Sub" },
+  { category: "Integration", need: "API gateway", aws: "API Gateway", azure: "API Management", gcp: "API Gateway" },
+  { category: "AI", need: "ML platform", aws: "SageMaker AI", azure: "Azure Machine Learning", gcp: "Vertex AI" },
+  { category: "AI", need: "Hosted foundation models", aws: "Bedrock", azure: "Azure AI Foundry", gcp: "Vertex AI (Model Garden)" },
+];

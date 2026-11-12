@@ -51,9 +51,6 @@ export default function AboutPage() {
       <div className="mb-12">
         <p className="font-mono text-xs text-green-400 mb-4">{"// about"}</p>
         <div className="flex flex-col sm:flex-row items-start gap-6 mb-8">
-          <div className="shrink-0 w-20 h-20 rounded-full bg-gradient-to-br from-green-400 to-blue-400 flex items-center justify-center font-mono text-2xl font-bold text-zinc-950">
-            AT
-          </div>
           <div>
             <h1 className="text-3xl font-bold text-zinc-100 mb-1">Abhishek Tiwari</h1>
             <p className="text-zinc-500 font-mono text-sm mb-3">

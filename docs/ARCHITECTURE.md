@@ -40,3 +40,11 @@ All pages are static (SSG). Content is compiled in from TypeScript data files; t
 - Add lint to CI; add a few Playwright smoke tests (home, a guide, search, mobile nav).
 - Large PDFs hosted outside Git.
 - Defer auth, progress tracking, and database until there is a validated need; if added later, prefer a managed service and keep it isolated from content.
+
+## Update (13 Nov 2026): content that keeps itself fresh
+
+- **Live feed (automatic, every 6 hours):** `app/_lib/feeds.ts` reads 7 public feeds (TechWorld with Nana, KodeKloud and freeCodeCamp YouTube channels; Kubernetes Blog; AWS What's New; HashiCorp Blog; CNCF). Pages that show it (`/`, `/updates`, `/certifications/[slug]`) use `export const revalidate = 21600`, so Vercel regenerates them in the background (ISR). No backend, no API keys.
+- **Link health (weekly):** `.github/workflows/content-check.yml` runs `scripts/check-links.mjs` every Monday and opens a GitHub issue listing any broken resource link.
+- **Curation (proposed):** a weekly Claude scheduled routine to review exam changes and better free resources and open a pull request for review. Not set up yet.
+- **Gamification:** `app/_lib/game.ts` keeps XP, levels, badges and streaks in the visitor's browser (localStorage). Nothing is sent to a server.
+- **Certification roadmaps:** `app/_data/certs.ts`, facts checked on official pages on 13 Nov 2026.

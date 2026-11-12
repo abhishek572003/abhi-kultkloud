@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Vendored Impeccable tooling (not app code).
     ".claude/**",
+    // Vendored React Bits components (MIT + Commons Clause), kept as published.
+    "app/_components/reactbits/**",
   ]),
 ]);
 

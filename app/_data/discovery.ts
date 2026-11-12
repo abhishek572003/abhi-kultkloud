@@ -17,7 +17,7 @@ export const domains: Domain[] = [
   { name: "Git & CI/CD", icon: "branch", summary: "Version control first, then pipelines that build, test and ship your code the same way every time.", topics: ["Git", "GitHub Actions", "Jenkins"], meta: "50 min guide", href: "/guides/git-delivery" },
   { name: "Containers & Kubernetes", icon: "container", summary: "Package an app with Docker, then run, scale and expose it on Kubernetes and EKS.", topics: ["Docker", "Kubernetes", "EKS"], meta: "6–8 weeks", href: "/learning-paths/containers-kubernetes" },
   { name: "Infrastructure as code", icon: "layers", summary: "Describe servers and networks in Terraform so they can be reviewed, repeated and torn down safely.", topics: ["Terraform", "Observability"], meta: "4–6 weeks", href: "/learning-paths/infrastructure-delivery" },
-  { name: "AI infrastructure", icon: "chip", summary: "GPUs, model serving, vector databases and the cloud plumbing behind AI apps.", topics: ["GPUs", "Model serving", "LLMOps"], meta: "Being mapped" },
+  { name: "AI infrastructure", icon: "chip", summary: "GPUs, model serving, vector databases and the cloud plumbing behind AI apps.", topics: ["GPUs", "Model serving", "Fine-tuning (Unsloth)", "LLMOps"], meta: "Being mapped" },
 ];
 
 export type Resource = { title: string; source: string; kind: "Docs" | "Video"; length?: string; href: string };

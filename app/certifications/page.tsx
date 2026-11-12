@@ -1,4 +1,34 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { certs, certsCheckedOn } from "../_data/certs";
+import { CertProgress } from "./CertRoadmap";
 
-export const metadata: Metadata = { title: "Credentials", description: "Verified credentials and learning evidence from Abhishek Tiwari's technical journey." };
-export default function CertificationsPage(){return <div className="platform-page"><div className="page-kicker">CREDENTIALS / 05</div><h1 className="page-title">Milestones with context.</h1><p className="page-lede">Credentials are one signal. The surrounding learning record explains what was studied and how the ideas connect.</p><div className="credential-list"><article className="credential-card"><div className="credential-icon">AZ</div><div><p className="page-kicker">MICROSOFT CERTIFIED</p><h2>Azure Fundamentals</h2><p>Foundational understanding of cloud concepts, Azure services, security, governance, and pricing.</p><a className="credential-link" href="https://drive.google.com/file/d/15xDCiq8OQb0sw4mCQX0gg8P08dZo5zXe/view?usp=sharing" target="_blank" rel="noreferrer">View certificate file ↗</a><a className="credential-link" href="https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/" target="_blank" rel="noreferrer">View certification reference ↗</a></div><span className="verified">verified</span></article><article className="credential-card"><div className="credential-icon claude">✦</div><div><p className="page-kicker">CLAUDE CERTIFIED</p><h2>Architect – Foundations</h2><p>Issued Aug 23, 2026 · expires Aug 23, 2027. Foundational architecture thinking for Claude solutions.</p><a className="credential-link" href="https://www.credly.com/badges/3fdc28ea-2105-4735-9b37-d763a17072ef" target="_blank" rel="noreferrer">View public credential ↗</a><a className="credential-link" href="https://drive.google.com/file/d/1f_ng-0IPS277gfTM2WptHFuNr3Lb6h0U/view?usp=drive_link" target="_blank" rel="noreferrer">View certificate file ↗</a></div><span className="verified">verified</span></article></div><div className="callout"><span>Evidence</span><p>Original certificates and internal training material remain private. Public pages use sanitized titles, dates, and learning summaries.</p></div></div>}
+export const metadata: Metadata = {
+  title: "Certification roadmaps",
+  description: "Step-by-step, free roadmaps for AWS Cloud Practitioner, Solutions Architect Associate, AZ-900, AZ-104, CKA and Terraform Associate, with videos, docs and practice for every step.",
+};
+
+const order = ["AWS", "Microsoft", "CNCF", "HashiCorp"] as const;
+
+export default function CertificationsPage() {
+  return <main className="kk-page">
+    <header className="kk-page-head">
+      <h1>Certification quests.</h1>
+      <p>Pick an exam and follow the steps in order. Every step comes with the free videos, official docs and practice it needs, and ticking it off earns XP. Exam facts were checked on the official pages on {certsCheckedOn}.</p>
+    </header>
+    {order.map(provider => <section key={provider} className="kk-cert-group" aria-labelledby={`p-${provider}`}>
+      <h2 id={`p-${provider}`}>{provider === "CNCF" ? "Kubernetes (CNCF)" : provider}</h2>
+      <ul className="kk-cert-grid">
+        {certs.filter(c => c.provider === provider).map(c => <li key={c.slug}>
+          <Link href={`/certifications/${c.slug}`} className={`kk-cert-card kk-cert-${provider.toLowerCase()}`}>
+            <span className="kk-cert-code">{c.code}</span>
+            <span className="kk-cert-name">{c.name}</span>
+            <span className="kk-cert-sum">{c.summary}</span>
+            <span className="kk-cert-meta"><span>{c.level}</span><span>{c.weeks}</span><span>{c.steps.length} steps</span></span>
+            <CertProgress cert={c} />
+          </Link>
+        </li>)}
+      </ul>
+    </section>)}
+  </main>;
+}
