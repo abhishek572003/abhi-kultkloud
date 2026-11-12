@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageBanner } from "../_components/Kit";
 import CheatSheets from "./CheatSheets";
 import { commandCount, sheets } from "../_data/cheatsheets";
 
@@ -8,11 +9,8 @@ export const metadata: Metadata = {
 };
 
 export default function CheatSheetsPage() {
-  return <main className="kk-page">
-    <header className="kk-page-head">
-      <h1>Cheat sheets you will actually keep open.</h1>
-      <p>{commandCount} everyday commands across {sheets.map(s => s.name).join(", ")}. Each one says what it does in plain English. Search, filter, copy. Replace anything in &lt;angle brackets&gt; with your own value.</p>
-    </header>
+  return <><PageBanner title="Cheat sheets" sub={`${commandCount} everyday commands across ${sheets.map(s => s.name).join(", ")}, each explained in plain English. Search, filter, copy. Replace anything in <angle brackets> with your own value.`} seed={121} />
+    <div className="kk-page">
     <CheatSheets />
-  </main>;
+  </div></>;
 }

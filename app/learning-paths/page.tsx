@@ -1,7 +1,27 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { learningPaths } from "../_data/platform";
+import { MODULE_XP, paths, resourceCount } from "../_data/paths";
+import { PageBanner } from "../_components/Kit";
+import DomainGlyph from "../_components/DomainGlyph";
+import { TaskProgress } from "../_components/Quest";
 
-export const metadata: Metadata = { title: "Learning paths", description: "Structured learning paths for systems, cloud, containers, and infrastructure delivery." };
+export const metadata: Metadata = { title: "Learning paths", description: `Seven free learning paths for Cloud, DevOps and AI infrastructure, with ${resourceCount} hand-picked resources: the best free videos, docs, books and labs.` };
 
-export default function LearningPathsPage() { return <div className="platform-page"><div className="page-kicker">LEARNING PATHS / 01</div><h1 className="page-title">Follow the sequence.</h1><p className="page-lede">Each path has a recommended order, an outcome, and a reason for the next step. Use it as a guide, not a checklist.</p><div className="path-list">{learningPaths.map((path,index)=><Link className="path-row" href={path.href} key={path.title}><span className="card-index">{String(index+1).padStart(2,"0")}</span><div><h2>{path.title}</h2><p>{path.description}</p><div className="tag-row">{path.topics.map(topic=><span key={topic}>{topic}</span>)}</div></div><div className="path-meta"><span>{path.duration}</span><b>↗</b></div></Link>)}</div><div className="callout"><span>Note</span><p>These paths are written from the perspective of a learner building working understanding. They point to guides, labs, and projects as those pieces become available.</p></div></div>; }
+export default function PathsPage() {
+  return <>
+    <PageBanner title="Learning paths" sub={`Seven paths, each split into modules with the best free videos, docs, books and labs we could find. ${resourceCount} resources in total, every link checked. Tick off a module for ${MODULE_XP} XP.`} chips={["Free resources only", "Checked by hand", "Ordered for beginners"]} seed={21} />
+    <div className="kk-page">
+      <section className="kk-section">
+        <ul className="kk-grid">
+          {paths.map((p, i) => <li key={p.slug}><Link className="kk-pane kk-card" href={`/learning-paths/${p.slug}`}>
+            <span className="kk-card-top"><span className="kk-glyph"><DomainGlyph icon={p.icon} /></span><span className="kk-tag kk-tag-lilac">Path {i + 1}</span></span>
+            <h2 >{p.name}</h2>
+            <p>{p.tagline}</p>
+            <span className="kk-meta"><span className="kk-chip">{p.weeks}</span><span className="kk-chip">{p.modules.length} modules</span></span>
+            <TaskProgress ids={p.modules.map(m => `path:${p.slug}:${m.id}`)} />
+          </Link></li>)}
+        </ul>
+      </section>
+    </div>
+  </>;
+}

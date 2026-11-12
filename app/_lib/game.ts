@@ -3,7 +3,7 @@
 import { useSyncExternalStore } from "react";
 
 // Progress lives in this browser only (localStorage). No account, nothing sent anywhere.
-export type GameState = { xp: number; done: string[]; badges: string[]; days: string[] };
+export type GameState = { xp: number; done: string[]; badges: string[]; days: string[]; goal?: string };
 const KEY = "kk-game-v1";
 const EMPTY: GameState = { xp: 0, done: [], badges: [], days: [] };
 
@@ -19,12 +19,14 @@ export const LEVELS = [
 
 export const BADGES = [
   { id: "first-step", name: "First step", how: "Complete any task", icon: "boot" },
+  { id: "class-chosen", name: "Class chosen", how: "Pick a career goal", icon: "star" },
   { id: "streak-3", name: "On a roll", how: "Visit 3 days in a row", icon: "flame" },
   { id: "streak-7", name: "Habit formed", how: "Visit 7 days in a row", icon: "flame2" },
   { id: "tinkerer", name: "Tool tinkerer", how: "Try all four toolkit tools", icon: "wrench" },
-  { id: "route-runner", name: "Route runner", how: "Finish all five route stops", icon: "flag" },
+  { id: "path-finisher", name: "Path finisher", how: "Finish every module in a learning path", icon: "flag" },
   { id: "cert-starter", name: "Cert chaser", how: "Tick off a step in any certification roadmap", icon: "scroll" },
   { id: "cert-ready", name: "Exam ready", how: "Finish every step of one certification roadmap", icon: "crown" },
+  { id: "builder", name: "Builder", how: "Finish a portfolio project", icon: "hammer" },
 ] as const;
 
 const listeners = new Set<() => void>();
@@ -75,7 +77,8 @@ export function streakOf(days: string[]) {
 export type XpEvent = { amount: number; label: string; levelUp?: string; badge?: string };
 function announce(e: XpEvent) { window.dispatchEvent(new CustomEvent<XpEvent>("kk-xp", { detail: e })); }
 
-function checkBadges(s: GameState, extra: { tools?: number; routeDone?: boolean; certDone?: boolean } = {}) {
+export type Extra = { pathDone?: boolean; certDone?: boolean; projectDone?: boolean };
+function checkBadges(s: GameState, extra: Extra = {}) {
   const earned: string[] = [];
   const give = (id: string, cond: boolean) => { if (cond && !s.badges.includes(id)) earned.push(id); };
   give("first-step", s.done.length > 0);
@@ -83,14 +86,16 @@ function checkBadges(s: GameState, extra: { tools?: number; routeDone?: boolean;
   give("streak-3", streak >= 3);
   give("streak-7", streak >= 7);
   give("tinkerer", s.done.filter(d => d.startsWith("tool:")).length >= 4);
-  give("route-runner", Boolean(extra.routeDone));
+  give("class-chosen", Boolean(s.goal));
+  give("path-finisher", Boolean(extra.pathDone));
+  give("builder", Boolean(extra.projectDone));
   give("cert-starter", s.done.some(d => d.startsWith("cert:")));
   give("cert-ready", Boolean(extra.certDone));
   return earned;
 }
 
 /** Toggle a task. Completing gives XP once; un-ticking takes it back. */
-export function toggleTask(id: string, xp: number, label: string, extra?: (done: string[]) => { routeDone?: boolean; certDone?: boolean }) {
+export function toggleTask(id: string, xp: number, label: string, extra?: (done: string[]) => Extra) {
   const s = parse(readRaw());
   const isDone = s.done.includes(id);
   const done = isDone ? s.done.filter(d => d !== id) : [...s.done, id];
@@ -122,6 +127,17 @@ export function recordVisit() {
   next.badges = [...next.badges, ...earned];
   save(next);
   if (s.days.length) announce({ amount: 5, label: `Daily visit · ${streakOf(next.days)}-day streak`, badge: earned.length ? BADGES.find(b => b.id === earned[0])?.name : undefined });
+}
+
+/** Choose a career goal ("class"). First pick gives 10 XP. */
+export function setGoal(slug: string, title: string) {
+  const s = parse(readRaw());
+  const first = !s.goal;
+  const next: GameState = { ...s, goal: slug, xp: s.xp + (first ? 10 : 0) };
+  const earned = checkBadges(next);
+  next.badges = [...next.badges, ...earned];
+  save(next);
+  announce({ amount: first ? 10 : 0, label: `Goal set: ${title}`, badge: earned.length ? BADGES.find(b => b.id === earned[0])?.name : undefined });
 }
 
 export function resetGame() { save(EMPTY); }

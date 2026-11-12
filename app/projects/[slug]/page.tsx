@@ -1,7 +1,38 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { projects } from "../../_data/projects";
+import { notFound } from "next/navigation";
+import { PROJECT_XP, projects } from "../../_data/projects";
+import { careers } from "../../_data/careers";
+import { Arrow, PageBanner } from "../../_components/Kit";
+import { QuestList } from "../../_components/Quest";
 
-export function generateStaticParams(){return projects.map(item=>({slug:item.slug}));}
-export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{const {slug}=await params;const item=projects.find(value=>value.slug===slug);return {title:item?.title??"Project",description:item?.description};}
-export default async function ProjectPage({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const item=projects.find(value=>value.slug===slug);if(!item)return <div className="platform-page"><h1 className="page-title">Project not found</h1><Link className="card-link" href="/projects">Return to projects ↗</Link></div>;return <article className="article-page"><div className="article-top"><span className="type-badge">{item.status}</span><span>{item.level} · {item.time}</span></div><h1 className="page-title">{item.title}</h1><p className="article-lede">{item.description}</p><div className="tag-row">{item.topics.map(topic=><span key={topic}>{topic}</span>)}</div><div className="article-layout"><aside><p className="page-kicker">PROJECT NOTES</p><a href="#problem">Problem</a><a href="#architecture">Architecture</a><a href="#lessons">Lessons</a></aside><div className="article-body"><section id="problem"><p className="page-kicker">01 / PROBLEM</p><h2>Start with the boundary worth explaining.</h2><p>{item.problem}</p></section><section id="architecture"><p className="page-kicker">02 / ARCHITECTURE</p><h2>Keep the moving parts visible.</h2><div className="code-block"><span>architecture sketch</span><pre>{item.architecture}</pre></div><p>Keep the architecture diagram close to the decision it explains: what is managed, what is configured, and where the system can fail.</p></section><section id="lessons"><p className="page-kicker">03 / LESSONS</p><h2>Document the tradeoffs.</h2><ul>{item.lessons.map(lesson=><li key={lesson}>{lesson}</li>)}</ul><Link className="button button-primary" href="/tools">Open the toolkit ↗</Link></section></div></div></article>;}
+export function generateStaticParams() { return projects.map(p => ({ slug: p.slug })); }
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const p = projects.find(x => x.slug === slug);
+  return p ? { title: `Project: ${p.title}`, description: p.proves } : {};
+}
+
+export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const p = projects.find(x => x.slug === slug);
+  if (!p) notFound();
+  const roles = p.forCareers.map(s => careers.find(c => c.slug === s)!).filter(Boolean);
+  return <>
+    <PageBanner title={p.title} sub={p.proves} crumbs={[{ href: "/projects", label: "Projects" }, { label: p.title }]} chips={[p.level, p.time, `${PROJECT_XP} XP per step`]} seed={p.slug.length * 3} />
+    <div className="kk-page">
+      <div className="kk-detail">
+        <section className="kk-block">
+          <h2>Steps</h2>
+          <QuestList prefix={`project:${p.slug}`} kind="project" xp={PROJECT_XP} labelPrefix={p.title}
+            items={p.steps.map(s => ({ id: s.id, title: s.title, text: s.detail, resources: s.links?.map(l => ({ title: l.title, href: l.href, kind: l.href.includes("youtube.com") ? "Video" : l.href.startsWith("/") ? "Hands-on" : "Docs" })) }))} />
+        </section>
+        <aside className="kk-side">
+          <div className="kk-pane"><h2>Stack</h2><div className="kk-chips">{p.stack.map(s => <span key={s} className="kk-chip">{s}</span>)}</div></div>
+          <div className="kk-pane"><h2>Helps you get hired as</h2><ul>{roles.map(r => <li key={r.slug}><Link href={`/careers/${r.slug}`}>{r.title}<Arrow /></Link></li>)}</ul></div>
+          <div className="kk-pane kk-tip"><b>Make it count</b><p>Public GitHub repo, a clear README with an architecture diagram, and a short write-up of one thing that broke. That is what interviewers ask about.</p></div>
+        </aside>
+      </div>
+    </div>
+  </>;
+}

@@ -154,3 +154,54 @@ export default function PixelWorld() {
     </svg>
   );
 }
+
+/** Short pixel-sky strip used behind every inner page title, so the whole site lives in one world. */
+export function PixelBanner({ seed = 3 }: { seed?: number }) {
+  const BW = 240, BH = 60;
+  const r = rng(seed);
+  const stars: Px[] = Array.from({ length: 34 }, () => [Math.floor(r() * BW), Math.floor(r() * 34), r() > 0.8 ? "#ffe9a8" : "#dfe6ff"]);
+  const bands = ["#140f33", "#1a1442", "#211a52", "#2a2063", "#342673", "#3f2c80", "#4b348a"];
+  const cx = 30 + Math.floor(r() * 50), cx2 = 150 + Math.floor(r() * 50);
+  const clouds = [...cloud(cx, 26, 0.55, ["#ffffff", "#e3e6ff", "#b9bdf0"]), ...cloud(cx2, 20, 0.45, ["#ffffff", "#e3e6ff", "#b9bdf0"])];
+  const sea: Px[] = [];
+  for (let x = -40; x < BW + 40; x++) {
+    const h = 5 + Math.round(2 * Math.sin((x + seed * 9) / 6) + 1.5 * Math.sin(x / 2.7));
+    for (let y = BH - h; y < BH; y++) sea.push([x, y, y < BH - h + 2 ? "#e9e6ff" : "#b7aee8"]);
+  }
+  return (
+    <svg className="kk-banner-art" viewBox={`0 0 ${BW} ${BH}`} preserveAspectRatio="xMidYMax slice" shapeRendering="crispEdges" aria-hidden="true" focusable="false">
+      {bands.map((c, i) => <rect key={c} x={0} y={i * 9} width={BW} height={10} fill={c} />)}
+      <g className="kk-stars"><Rects pixels={stars.filter((_, i) => i % 2 === 0)} /></g>
+      <g className="kk-stars kk-stars-b"><Rects pixels={stars.filter((_, i) => i % 2 === 1)} /></g>
+      <g className="kk-drift-mid"><Rects pixels={clouds} /></g>
+      <g className="kk-drift-sea"><Rects pixels={sea} /></g>
+    </svg>
+  );
+}
+
+const MARK = [
+  "......XXXX......",
+  "....XXwwwwXX....",
+  "...XwwwwwwwwXXX.",
+  ".XXwwwwwwwwwwwwX",
+  "XwwwwwwwwwwwwwwX",
+  "XwwwEwwwwwwEwwwX",
+  "XwwwEwwwwwwEwwwX",
+  "XwpwwwwMMwwwwpwX",
+  "XsswwwwwwwwwwssX",
+  ".XXXXXXXXXXXXXX.",
+];
+const MCOL: Record<string, string> = { X: "#1b1f3a", w: "#ffffff", s: "#d7d2ff", E: "#1b1f3a", p: "#ff8fbd", M: "#1b1f3a" };
+
+/** Pixel brand mark: Kloudy on a sun-yellow tile. */
+export function LogoMark({ size = 32 }: { size?: number }) {
+  return (
+    <svg className="kk-logo-mark" viewBox="0 0 20 16" width={size} height={size * 0.8} shapeRendering="crispEdges" aria-hidden="true" focusable="false">
+      <rect x={1} y={0} width={18} height={16} fill="#1b1f3a" />
+      <rect x={0} y={1} width={20} height={14} fill="#1b1f3a" />
+      <rect x={1} y={1} width={18} height={14} fill="#ffd23f" />
+      <rect x={1} y={13} width={18} height={2} fill="#e0a800" />
+      <Rects pixels={sprite(MARK, MCOL, 2, 2)} />
+    </svg>
+  );
+}

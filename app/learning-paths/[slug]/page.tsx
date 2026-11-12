@@ -1,7 +1,63 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { learningPaths } from "../../_data/platform";
+import { notFound } from "next/navigation";
+import { MODULE_XP, paths } from "../../_data/paths";
+import { careers } from "../../_data/careers";
+import { Arrow, PageBanner } from "../../_components/Kit";
+import { QuestList } from "../../_components/Quest";
+import LiveFeed from "../../_components/LiveFeed";
+import { getFeed } from "../../_lib/feeds";
 
-export function generateStaticParams(){return learningPaths.map(path=>({slug:path.href.split("/").pop()!}));}
-export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{const {slug}=await params;const path=learningPaths.find(item=>item.href.endsWith(slug));return {title:path?.title??"Learning path",description:path?.description};}
-export default async function LearningPathPage({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const path=learningPaths.find(item=>item.href.endsWith(slug));if(!path)return <div className="platform-page"><h1 className="page-title">Path not found</h1><Link className="card-link" href="/learning-paths">Return to learning paths ↗</Link></div>;return <article className="article-page"><div className="article-top"><span className="type-badge">Learning path</span><span>{path.duration}</span></div><h1 className="page-title">{path.title}</h1><p className="article-lede">{path.description}</p><div className="tag-row">{path.topics.map(topic=><span key={topic}>{topic}</span>)}</div><div className="article-layout"><aside><p className="page-kicker">PATH OUTLINE</p><a href="#outcome">Outcome</a><a href="#sequence">Sequence</a><a href="#practice">Practice</a></aside><div className="article-body"><section id="outcome"><p className="page-kicker">OUTCOME</p><h2>Build understanding you can carry forward.</h2><p>By the end of this path, you should be able to explain the main concepts, choose an appropriate tool, and point to a small working example that makes the decision concrete.</p></section><section id="sequence"><p className="page-kicker">RECOMMENDED SEQUENCE</p><h2>Move from foundations to a working system.</h2><ol><li>Learn the vocabulary and the problem each tool addresses.</li><li>Run a constrained example with a visible input and output.</li><li>Connect the tool to the next layer in the system.</li><li>Document one tradeoff and one failure mode.</li></ol></section><section id="practice"><p className="page-kicker">PRACTICE NEXT</p><h2>Practise with real commands.</h2><p>Work through the commands for this path in the cheat sheets, and use the toolkit for subnets, schedules and permissions.</p><Link className="button button-primary" href="/cheatsheets">Open the cheat sheets ↗</Link></section></div></div></article>;}
+export const revalidate = 21600;
+
+const FEED_TOPIC: Record<string, string> = { systems: "docker", "cloud-foundations": "aws", "git-cicd": "docker", "containers-kubernetes": "kubernetes", "infrastructure-delivery": "terraform", "observability-sre": "kubernetes", "ai-infrastructure": "ai" };
+
+export function generateStaticParams() { return paths.map(p => ({ slug: p.slug })); }
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const p = paths.find(x => x.slug === slug);
+  return p ? { title: `${p.name}: free learning path`, description: `${p.tagline} ${p.modules.length} modules with the best free videos, docs and labs.` } : {};
+}
+
+export default async function PathPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const p = paths.find(x => x.slug === slug);
+  if (!p) notFound();
+  const idx = paths.indexOf(p);
+  const next = paths[idx + 1];
+  const roles = p.leadsTo.map(s => careers.find(c => c.slug === s)!).filter(Boolean);
+  const feed = await getFeed();
+  const fresh = feed.items.filter(i => i.topics.includes(FEED_TOPIC[p.slug] ?? "")).slice(0, 4);
+
+  return <>
+    <PageBanner title={p.name} sub={p.tagline} crumbs={[{ href: "/learning-paths", label: "Learning paths" }, { label: p.name }]} chips={[p.weeks, `${p.modules.length} modules`, `${MODULE_XP} XP per module`]} seed={idx * 7 + 3} />
+    <div className="kk-page">
+      <div className="kk-detail">
+        <div>
+          <section className="kk-block">
+            <h2>Modules</h2>
+            <p className="kk-lead">Work top to bottom. Use one video and one hands-on resource per module, then tick it off.</p>
+            <QuestList prefix={`path:${p.slug}`} kind="path" xp={MODULE_XP} labelPrefix={p.name}
+              items={p.modules.map(m => ({ id: m.id, title: m.title, text: `You will be able to: ${m.outcome}`, resources: m.resources }))} />
+          </section>
+          {fresh.length > 0 && <section className="kk-block">
+            <h2>New this week on this topic</h2>
+            <p className="kk-lead">Pulled in automatically from official blogs and trusted channels, refreshed every day.</p>
+            <div className="kk-pane kk-feed-wrap"><LiveFeed items={fresh} /></div>
+          </section>}
+        </div>
+        <aside className="kk-side">
+          <div className="kk-pane">
+            <h2>Leads to these jobs</h2>
+            <ul>{roles.map(r => <li key={r.slug}><Link href={`/careers/${r.slug}`}>{r.title}<Arrow /></Link></li>)}</ul>
+          </div>
+          {next && <div className="kk-pane">
+            <h2>Next path</h2>
+            <ul><li><Link href={`/learning-paths/${next.slug}`}>{next.name}<Arrow /></Link></li></ul>
+          </div>}
+          <div className="kk-pane kk-tip"><b>How to use this</b><p>Do not watch everything. Pick one video per module, do the hands-on part, and only then move on. Doing beats watching.</p></div>
+        </aside>
+      </div>
+    </div>
+  </>;
+}

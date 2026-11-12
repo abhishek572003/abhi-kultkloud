@@ -1,19 +1,19 @@
+// Search index built from the site's own data.
+import { careers } from "./careers";
+import { paths } from "./paths";
+import { certs } from "./certs";
 import { projects } from "./projects";
 
-export type ContentItem = { slug: string; type: string; title: string; description: string; topics: string[]; level: string; time: string; href: string };
+export type ContentItem = { slug: string; type: string; title: string; description: string; topics: string[]; href: string };
 
 export const platformItems: ContentItem[] = [
-  { slug: "linux-foundations", type: "Guide", title: "Linux foundations", description: "The command line, filesystems, permissions, processes, and shell habits that make the rest of DevOps easier.", topics: ["Linux", "Shell"], level: "Foundation", time: "45 min", href: "/guides/linux-foundations" },
-  { slug: "cloud-architecture", type: "Guide", title: "Cloud architecture fundamentals", description: "A service-agnostic way to reason about identity, networking, compute, storage, reliability, and cost.", topics: ["Cloud", "Architecture"], level: "Foundation", time: "30 min", href: "/guides/cloud-architecture" },
-  { slug: "git-delivery", type: "Guide", title: "Git to delivery", description: "A practical path from version control to repeatable builds, tests, and deployments.", topics: ["Git", "CI/CD"], level: "Intermediate", time: "50 min", href: "/guides/git-delivery" },
-  { slug: "containers-kubernetes", type: "Learning path", title: "Containers to Kubernetes", description: "Understand the container lifecycle before moving into workloads, services, scheduling, and EKS.", topics: ["Docker", "Kubernetes"], level: "Intermediate", time: "6–8 hrs", href: "/learning-paths/containers-kubernetes" },
-  { slug: "terraform-networking", type: "Lab", title: "Terraform VPC baseline", description: "A portfolio lab for expressing a small AWS network as code and explaining each decision.", topics: ["Terraform", "AWS", "VPC"], level: "Intermediate", time: "2 hrs", href: "/labs/terraform-networking" },
-  ...projects.map(project => ({ slug: project.slug, type: "Project", title: project.title, description: project.description, topics: project.topics, level: project.level, time: project.time, href: `/projects/${project.slug}` })),
-];
-
-export const learningPaths = [
-  { title: "Start with systems", description: "Linux, networking, Git, and the mental models that support every cloud tool.", topics: ["Linux", "Networking", "Git"], duration: "2–3 weeks", href: "/learning-paths/systems" },
-  { title: "Cloud foundations", description: "Move from services to architecture: identity, VPCs, compute, storage, serverless, and cost.", topics: ["AWS", "Azure", "Architecture"], duration: "3–5 weeks", href: "/learning-paths/cloud-foundations" },
-  { title: "Containers to Kubernetes", description: "Build, ship, schedule, expose, observe, and secure containerized workloads.", topics: ["Docker", "Kubernetes", "EKS"], duration: "6–8 weeks", href: "/learning-paths/containers-kubernetes" },
-  { title: "Infrastructure delivery", description: "Connect source control, CI/CD, Terraform, and safe operational feedback loops.", topics: ["Jenkins", "Terraform", "Observability"], duration: "4–6 weeks", href: "/learning-paths/infrastructure-delivery" },
+  ...careers.map(c => ({ slug: `career-${c.slug}`, type: "Career", title: c.title, description: c.tagline, topics: c.skills, href: `/careers/${c.slug}` })),
+  ...paths.map(p => ({ slug: `path-${p.slug}`, type: "Learning path", title: p.name, description: p.tagline, topics: p.modules.flatMap(m => [m.title, ...m.resources.map(r => r.title)]), href: `/learning-paths/${p.slug}` })),
+  ...certs.map(c => ({ slug: `cert-${c.slug}`, type: "Certification", title: `${c.name} (${c.code})`, description: c.summary, topics: [c.provider, c.code], href: `/certifications/${c.slug}` })),
+  ...projects.map(p => ({ slug: `project-${p.slug}`, type: "Project", title: p.title, description: p.proves, topics: p.stack, href: `/projects/${p.slug}` })),
+  { slug: "tool-subnet", type: "Tool", title: "Subnet calculator", description: "Plan VPC and subnet ranges with AWS limits.", topics: ["CIDR", "VPC", "networking"], href: "/tools#subnet" },
+  { slug: "tool-cron", type: "Tool", title: "Cron explainer", description: "Read a cron schedule in plain English.", topics: ["cron", "schedule"], href: "/tools#cron" },
+  { slug: "tool-chmod", type: "Tool", title: "chmod calculator", description: "Linux permissions as ticks and octal.", topics: ["linux", "permissions"], href: "/tools#chmod" },
+  { slug: "tool-cloud", type: "Tool", title: "Cloud service translator", description: "AWS, Azure and Google Cloud equivalents.", topics: ["aws", "azure", "gcp"], href: "/tools#cloud-map" },
+  { slug: "cheatsheets", type: "Cheat sheet", title: "Cheat sheets", description: "Linux, Git, Docker, kubectl and Terraform commands.", topics: ["linux", "git", "docker", "kubectl", "terraform"], href: "/cheatsheets" },
 ];

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageBanner } from "../_components/Kit";
 import Link from "next/link";
 import SubnetCalculator from "./SubnetCalculator";
 import CronExplainer from "./CronExplainer";
@@ -19,12 +20,10 @@ const tools = [
 ];
 
 export default function ToolsPage() {
-  return <main className="kk-page">
-    <header className="kk-page-head">
-      <h1>The toolkit.</h1>
-      <p>Small tools for the jobs that trip people up in their first year: subnetting, schedules, permissions and cloud vocabulary. Everything runs in your browser. Nothing is sent anywhere. Try each one for +15 XP.</p>
+  return <><PageBanner title="The toolkit" sub="Small tools for the jobs that trip people up in their first year: subnetting, schedules, permissions and cloud vocabulary. Everything runs in your browser. Try each one for +15 XP." seed={111}>
       <nav className="kk-jump" aria-label="Jump to a tool">{tools.map(t => <a key={t.id} href={`#${t.id}`}>{t.name}</a>)}<Link href="/cheatsheets">Cheat sheets</Link></nav>
-    </header>
+    </PageBanner>
+    <div className="kk-page">
     {tools.map(({ id, name, what, Comp }) => <section key={id} id={id} className="kk-tool" aria-labelledby={`${id}-title`}>
       <div className="kk-tool-intro">
         <h2 id={`${id}-title`}>{name}</h2>
@@ -32,5 +31,5 @@ export default function ToolsPage() {
       </div>
       <ToolXp id={id} name={name}><Comp /></ToolXp>
     </section>)}
-  </main>;
+  </div></>;
 }

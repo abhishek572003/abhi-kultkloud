@@ -48,3 +48,9 @@ All pages are static (SSG). Content is compiled in from TypeScript data files; t
 - **Curation (proposed):** a weekly Claude scheduled routine to review exam changes and better free resources and open a pull request for review. Not set up yet.
 - **Gamification:** `app/_lib/game.ts` keeps XP, levels, badges and streaks in the visitor's browser (localStorage). Nothing is sent to a server.
 - **Certification roadmaps:** `app/_data/certs.ts`, facts checked on official pages on 13 Nov 2026.
+
+## Update (13 Nov 2026, round 4): job-focused rebuild
+
+- **Content model (app/_data):** `careers.ts` (6 roles with time, pay bands and sources), `paths.ts` (7 learning paths, modules with verified free resources), `certs.ts` (13 certifications in 3 stages, EscBash practice linked), `projects.ts` (6 portfolio projects). Search (`platform.ts`) and the sitemap are generated from these.
+- **One design system:** `app/kultkloud.css` only (legacy CSS removed). Night-plum palette, Silkscreen pixel display font, Nunito body. Every inner page uses `PageBanner` (pixel sky) from `app/_components/Kit.tsx`; quest checklists are `QuestList` in `Quest.tsx`.
+- **Retired routes** (redirected in next.config.ts): /courses, /roadmaps, /blog, /guides/*, /labs/*.

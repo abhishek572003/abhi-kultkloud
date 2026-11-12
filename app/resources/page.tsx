@@ -1,5 +1,19 @@
 import type { Metadata } from "next";
-import { resources } from "../_data/resources";
+import { PageBanner } from "../_components/Kit";
+import { notes } from "../_data/resources";
 
-export const metadata: Metadata = { title: "Resources", description: "A growing library of notes, references, and practical cloud and DevOps material." };
-export default function ResourcesPage(){return <div className="platform-page"><div className="page-kicker">RESOURCES / 04</div><h1 className="page-title">Keep the useful parts close.</h1><p className="page-lede">Reference material for the moments when you need a command, a concept, or a compact explanation without opening ten tabs.</p><div className="resource-list">{resources.map(resource=><article className="resource-row" key={resource.id}><div className="resource-format">{resource.format}</div><div><p className="page-kicker">{resource.type}</p><h2>{resource.title}</h2><p>{resource.description}</p></div>{resource.href ? <a className="resource-download" href={resource.href} download>Download ↗</a> : <span className="resource-arrow" aria-hidden="true">↗</span>}</article>)}</div></div>}
+export const metadata: Metadata = { title: "Study notes", description: "Free downloadable DevOps and Linux study notes." };
+
+export default function ResourcesPage() {
+  return <>
+    <PageBanner title="Study notes" sub="Free notes to download and keep next to the learning paths." seed={71} />
+    <div className="kk-page">
+      <ul className="kk-grid kk-grid-2" style={{ marginTop: 40 }}>
+        {notes.map(n => <li key={n.href}><a className="kk-pane kk-card" href={n.href} download>
+          <span className="kk-card-top"><span className="kk-tag kk-tag-sky">Download</span><span className="kk-chip">{n.size}</span></span>
+          <h2 >{n.title}</h2><p>{n.what}</p>
+        </a></li>)}
+      </ul>
+    </div>
+  </>;
+}

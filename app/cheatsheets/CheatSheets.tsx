@@ -17,7 +17,7 @@ export default function CheatSheets() {
   }, [active, query]);
 
   return <div>
-    <div className="kk-sheet-controls">
+    <div className="kk-pane kk-sheet-controls">
       <label className="kk-field">
         <span>Search commands</span>
         <input value={query} onChange={e => setQuery(e.target.value)} placeholder="Try “logs”, “branch” or “port”" autoComplete="off" />

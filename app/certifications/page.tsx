@@ -1,34 +1,30 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { certs, certsCheckedOn } from "../_data/certs";
-import { CertProgress } from "./CertRoadmap";
+import { certs, certsCheckedOn, STAGES } from "../_data/certs";
+import { PageBanner } from "../_components/Kit";
+import { TaskProgress } from "../_components/Quest";
 
 export const metadata: Metadata = {
-  title: "Certification roadmaps",
-  description: "Step-by-step, free roadmaps for AWS Cloud Practitioner, Solutions Architect Associate, AZ-900, AZ-104, CKA and Terraform Associate, with videos, docs and practice for every step.",
+  title: "Certification quests",
+  description: "Step-by-step free roadmaps for the most valued Cloud, DevOps, Kubernetes and AI certifications: AWS, Azure, Google Cloud, CKA, CKAD, KCNA, Terraform and Claude, with videos, docs and practice for every step.",
 };
 
-const order = ["AWS", "Microsoft", "CNCF", "HashiCorp"] as const;
-
 export default function CertificationsPage() {
-  return <main className="kk-page">
-    <header className="kk-page-head">
-      <h1>Certification quests.</h1>
-      <p>Pick an exam and follow the steps in order. Every step comes with the free videos, official docs and practice it needs, and ticking it off earns XP. Exam facts were checked on the official pages on {certsCheckedOn}.</p>
-    </header>
-    {order.map(provider => <section key={provider} className="kk-cert-group" aria-labelledby={`p-${provider}`}>
-      <h2 id={`p-${provider}`}>{provider === "CNCF" ? "Kubernetes (CNCF)" : provider}</h2>
-      <ul className="kk-cert-grid">
-        {certs.filter(c => c.provider === provider).map(c => <li key={c.slug}>
-          <Link href={`/certifications/${c.slug}`} className={`kk-cert-card kk-cert-${provider.toLowerCase()}`}>
-            <span className="kk-cert-code">{c.code}</span>
-            <span className="kk-cert-name">{c.name}</span>
-            <span className="kk-cert-sum">{c.summary}</span>
-            <span className="kk-cert-meta"><span>{c.level}</span><span>{c.weeks}</span><span>{c.steps.length} steps</span></span>
-            <CertProgress cert={c} />
-          </Link>
-        </li>)}
-      </ul>
-    </section>)}
-  </main>;
+  return <>
+    <PageBanner title="Certification quests" sub={`${certs.length} of the certifications employers value most, each broken into steps with the exact free videos, official docs, labs and practice to use. Exam facts checked on the official pages on ${certsCheckedOn}.`} chips={["AWS", "Azure", "Google Cloud", "Kubernetes", "Terraform", "Claude"]} seed={41} />
+    <div className="kk-page">
+      {STAGES.map(st => <section key={st.stage} className="kk-stage" aria-labelledby={`st-${st.stage}`}>
+        <div className="kk-stage-head"><h2 id={`st-${st.stage}`}>{st.stage}</h2><p>{st.blurb}</p></div>
+        <ul className="kk-grid">
+          {certs.filter(c => c.stage === st.stage).map(c => <li key={c.slug}><Link className={`kk-pane kk-card kk-cert-card kk-cert-${c.provider.toLowerCase()}`} href={`/certifications/${c.slug}`}>
+            <span className="kk-cert-code">{c.provider} · {c.code}</span>
+            <h3 className="kk-cert-name">{c.name}</h3>
+            <p className="kk-cert-sum">{c.summary}</p>
+            <span className="kk-meta"><span className="kk-chip">{c.level}</span><span className="kk-chip">{c.weeks}</span><span className="kk-chip">{c.steps.length} steps</span></span>
+            <TaskProgress ids={c.steps.map(s => `cert:${c.slug}:${s.id}`)} />
+          </Link></li>)}
+        </ul>
+      </section>)}
+    </div>
+  </>;
 }

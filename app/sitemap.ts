@@ -1,4 +1,13 @@
 import type { MetadataRoute } from "next";
+import { careers } from "./_data/careers";
+import { paths } from "./_data/paths";
+import { certs } from "./_data/certs";
+import { projects } from "./_data/projects";
 
-const routes = ["/", "/start-here", "/learning-paths", "/tools", "/cheatsheets", "/updates", "/quest", "/certifications/aws-cloud-practitioner", "/certifications/aws-solutions-architect-associate", "/certifications/azure-fundamentals", "/certifications/azure-administrator", "/certifications/cka", "/certifications/terraform-associate", "/projects", "/resources", "/certifications", "/about", "/search", "/guides/linux-foundations", "/guides/cloud-architecture", "/guides/git-delivery", "/learning-paths/systems", "/learning-paths/cloud-foundations", "/learning-paths/containers-kubernetes", "/learning-paths/infrastructure-delivery", "/projects/serverless-flow", "/labs/terraform-networking"];
-export default function sitemap(): MetadataRoute.Sitemap { return routes.map(path => ({ url: `https://abhi-kultkloud.vercel.app${path}`, lastModified: new Date("2026-09-08"), changeFrequency: "monthly", priority: path === "/" ? 1 : 0.7 })); }
+const base = "https://abhi-kultkloud.vercel.app";
+const fixed = ["/", "/start-here", "/careers", "/learning-paths", "/certifications", "/projects", "/tools", "/cheatsheets", "/updates", "/quest", "/resources", "/about", "/search"];
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const all = [...fixed, ...careers.map(c => `/careers/${c.slug}`), ...paths.map(p => `/learning-paths/${p.slug}`), ...certs.map(c => `/certifications/${c.slug}`), ...projects.map(p => `/projects/${p.slug}`)];
+  return all.map(path => ({ url: `${base}${path}`, lastModified: new Date(), changeFrequency: path === "/" || path === "/updates" ? "daily" : "weekly", priority: path === "/" ? 1 : 0.7 }));
+}

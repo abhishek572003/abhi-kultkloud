@@ -1,7 +1,26 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { projects } from "../_data/projects";
+import { PROJECT_XP, projects } from "../_data/projects";
+import { PageBanner } from "../_components/Kit";
+import { TaskProgress } from "../_components/Quest";
 
-export const metadata: Metadata = { title: "Projects", description: "Cloud and DevOps projects documented with architecture, decisions, and lessons learned." };
+export const metadata: Metadata = { title: "Portfolio projects that get interviews", description: "Six Cloud, DevOps and AI-infrastructure projects that prove the skills recruiters ask for, with step-by-step instructions and free resources." };
 
-export default function ProjectsPage() { return <div className="platform-page"><div className="page-kicker">PROJECTS / 02</div><h1 className="page-title">Systems you can explain.</h1><p className="page-lede">Projects are documented around the problem, architecture, decisions, tradeoffs, and lessons learned. New portfolio labs are labelled clearly.</p><div className="project-list">{projects.map(project=><article className="project-card" key={project.slug}><div className="project-card-top"><span className="type-badge">{project.status}</span><span>{project.level} · {project.time}</span></div><h2>{project.title}</h2><p>{project.description}</p><div className="tag-row">{project.topics.map(topic=><span key={topic}>{topic}</span>)}</div><Link className="card-link" href={`/projects/${project.slug}`}>Read the project ↗</Link></article>)}</div><div className="callout"><span>Scope</span><p>Architecture descriptions are learning records and portfolio demonstrations. They do not claim production ownership of every component, and sanitized records do not include client or internal information.</p></div></div>; }
+export default function ProjectsPage() {
+  return <>
+    <PageBanner title="Build proof, not just notes" sub={`Certifications open the door; projects get you through it. Each project below proves one skill recruiters ask for, step by step, with free resources. Each step is worth ${PROJECT_XP} XP; finish a project for the Builder badge.`} chips={["6 projects", "Beginner to advanced", "Put them on your CV"]} seed={31} />
+    <div className="kk-page">
+      <section className="kk-section">
+        <ul className="kk-grid">
+          {projects.map(p => <li key={p.slug}><Link className="kk-pane kk-card" href={`/projects/${p.slug}`}>
+            <span className="kk-card-top"><span className={`kk-tag ${p.level === "Beginner" ? "kk-tag-mint" : p.level === "Intermediate" ? "kk-tag-sky" : "kk-tag-rose"}`}>{p.level}</span><span className="kk-chip">{p.time}</span></span>
+            <h2 >{p.title}</h2>
+            <p>{p.proves}</p>
+            <span className="kk-meta">{p.stack.slice(0, 4).map(s => <span key={s} className="kk-chip">{s}</span>)}</span>
+            <TaskProgress ids={p.steps.map(s => `project:${p.slug}:${s.id}`)} />
+          </Link></li>)}
+        </ul>
+      </section>
+    </div>
+  </>;
+}
