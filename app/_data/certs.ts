@@ -1,4 +1,4 @@
-// Certification roadmaps. Exam facts checked on the official pages on 13 Nov 2026;
+// Certification roadmaps. Exam facts checked on the official pages on 23 Nov 2026;
 // providers change prices and versions, so every page links to the official source.
 export type ResourceKind = "Official" | "Video" | "Docs" | "Practice" | "Hands-on";
 export type Resource = { title: string; kind: ResourceKind; href: string; note?: string };
@@ -233,7 +233,7 @@ export const certs: Cert[] = [
     slug: "claude-certified-architect", stage: "Get hired", code: "CCAR-F", name: "Claude Certified Architect – Foundations", provider: "Anthropic", level: "Intermediate", weeks: "3–4 weeks",
     summary: "Anthropic's architecture certification: agents, Claude Code, prompting, tool design and MCP.",
     forWho: "Engineers building AI features or agents, and DevOps people moving into AI infrastructure.",
-    facts: [{ label: "Exam", value: "CCAR-F" }, { label: "Time", value: "120 min" }, { label: "Questions", value: "60" }, { label: "Pass mark", value: "72%" }, { label: "Eligibility", value: "Check Anthropic's FAQ" }],
+    facts: [{ label: "Exam", value: "CCAR-F" }, { label: "Time", value: "120 min" }, { label: "Questions", value: "60" }, { label: "Pass mark", value: "720 / 1000" }, { label: "Eligibility", value: "Check Anthropic's FAQ" }],
     official: "https://anthropic-partners.skilljar.com/page/faq-certifications", feedTopic: "ai",
     steps: [
       { id: "eligibility", title: "Check eligibility and booking", why: "Registration runs through Anthropic's academy. Confirm you can sit it before studying.", resources: [
@@ -270,7 +270,7 @@ export const certs: Cert[] = [
     slug: "azure-devops-engineer", stage: "Level up", code: "AZ-400", name: "Microsoft Certified: DevOps Engineer Expert", provider: "Microsoft", level: "Intermediate", weeks: "8–10 weeks",
     summary: "Design and run DevOps on Azure and GitHub: source control, pipelines, security and instrumentation.",
     forWho: "Engineers who already hold AZ-104 or AZ-204 (one is required for the Expert title).",
-    facts: [{ label: "Exam", value: "AZ-400" }, { label: "Prerequisite", value: "AZ-104 or AZ-204" }, { label: "Price", value: "Varies by country" }, { label: "Renewal", value: "Free, yearly" }, { label: "Covers", value: "Azure DevOps and GitHub" }],
+    facts: [{ label: "Exam", value: "AZ-400" }, { label: "Prerequisite", value: "AZ-104 or AZ-204" }, { label: "Price", value: "Varies by country" }, { label: "Renewal", value: "Free, yearly" }, { label: "Retires", value: "1 Feb 2027, replaced by AZ-401" }],
     official: "https://learn.microsoft.com/en-us/credentials/certifications/devops-engineer/", feedTopic: "azure",
     steps: [
       { id: "prereq", title: "Get AZ-104 (or AZ-204) first", why: "The Expert certification needs one of them.", resources: [
@@ -285,7 +285,7 @@ export const certs: Cert[] = [
   },
 ];
 
-export const certsCheckedOn = "13 Nov 2026";
+export const certsCheckedOn = "23 Nov 2026";
 export const STAGES: { stage: Stage; blurb: string }[] = [
   { stage: "Start here", blurb: "Foundational exams. Prove you speak cloud." },
   { stage: "Get hired", blurb: "Associate-level exams employers ask for in job posts." },
